@@ -1,18 +1,78 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.debugsession.app</groupId>
-  <artifactId>debugSessionApp</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>debugSessionApp</name>
-  <url>http://maven.apache.org</url>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.debugsession.app</groupId>
+	<artifactId>debugSessionApp</artifactId>
+	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>debugSessionApp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<testng.version>6.9.10</testng.version>
+		<selenium-java.version>4.10.0</selenium-java.version>
+		<selenium-server.version>4.0.0-alpha-2</selenium-server.version>
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+		<jdk.level>1.8</jdk.level>
+	</properties>
+	<dependencies>
+		<!-- https://mvnrepository.com/artifact/org.testng/testng -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>${testng.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!--
+		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>${selenium-java.version}</version>
+		</dependency>
+
+		<!--
+		https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<version>${selenium-server.version}</version>
+		</dependency>
+		<!--
+		https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+			<version>2.20.0</version>
+			<scope>test</scope>
+		</dependency>
+
+
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>${jdk.level}</source>
+					<target>${jdk.level}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<suiteXmlFiles>
+						<!-- TestNG suite XML files -->
+						<suiteXmlFile>testng.xml</suiteXmlFile>
+					</suiteXmlFiles>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
