@@ -38,14 +38,13 @@ public class BaseTest {
 				System.getProperty("user.dir") + "/src/main/resources/configuration/config.properties");
 		File file = new File(cm.getProperty("session.adress.store"));
 		ChromeOptions chromeOptions = new ChromeOptions();
-		//chromeOptions.addArguments("start-maximized");
+		chromeOptions.addArguments("start-maximized");
 		if (file.exists()) {
 			System.out.println("Session file exists!");
 			String sessionAdd = new BufferedReader(new FileReader(file)).readLine();
 			chromeOptions.setExperimentalOption("debuggerAddress", sessionAdd);
 		} else {
 			System.out.println("Session file does not exists!");
-		//	chromeOptions.setExperimentalOption("detach", "true");
 		}
 
 		DesiredCapabilities dc = new DesiredCapabilities();
@@ -53,11 +52,12 @@ public class BaseTest {
 		chromeOptions.merge(dc);
 		driver = WebDriverManager.chromedriver().capabilities(chromeOptions).avoidShutdownHook().create();
 		SessionManager.storeSessionAddress(driver, cm);
+		System.out.println("Setup completed...");
 	}
 
 	@AfterClass
 	public void tearDown() {
-		// driver.quit();
+		System.out.println("Tear down completed....");
 	}
 
 }
