@@ -30,21 +30,19 @@ public class SessionManager {
 	public static void storeSessionAddress(WebDriver driver, ConfigManager cm) throws IOException {
 		Capabilities capabilities = ((RemoteWebDriver) driver).getCapabilities();
 		Map<String, Object> cMAP = capabilities.asMap();
-		cMAP.forEach((key, value) -> {
-			try {
-				if (key.contains("chromeOptions")) {
-					((Map) value).forEach((k, v) -> {
-						if (((String) k).contains("debuggerAddress")) {
-							writeableList.add(v.toString());
-						}
-					});
-					Files.write(Paths.get(System.getProperty("user.dir") + cm.getProperty("session.adress.store")),
-							writeableList, StandardOpenOption.CREATE);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
+		for(String key: cMAP.keySet()) {
+			if (key.contains("chromeOptions")) {
+				((Map) cMAP.get(key)).forEach((k, v) -> {
+					if (((String) k).contains("debuggerAddress")) {
+						writeableList.add(v.toString());
+					}
+				});
+				break;
 			}
+
 			// System.out.println("Key is:" + key+ ", Value is:"+value);
-		});
+		}
+		Files.write(Paths.get(cm.getProperty("session.adress.store")),
+				writeableList, StandardOpenOption.CREATE);
 	}
 }
